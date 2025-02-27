@@ -1,7 +1,10 @@
 class Cliente {
+    // Atributos privados
+    #cpf;
+
     constructor(nome, cpf, endereco) {
         this.nome = nome;  // Nome sem formatação
-        this.cpf = cpf;    // CPF mantido
+        this.#cpf = cpf;   // CPF mantido como privado
         this.endereco = endereco;  // Endereço sem formatação
         this.telefones = new Set();
     }
@@ -21,10 +24,15 @@ class Cliente {
         telefones.forEach(telefone => this.telefones.add(telefone));
     }
 
-    // Método para exibir detalhes do cliente
+    // Método para exibir detalhes do cliente com o CPF formatado
     detalhes() {
         const detalhesTelefone = [...this.telefones].map(t => `DDD: ${t.ddd} | Número: ${t.numero}`).join('\n');
-        return `Nome: ${this.nome}\nCPF: ${this.cpf}\nEndereço: ${this.endereco.exibirEndereco()}\nTelefones:\n${detalhesTelefone}`;
+        return `Nome: ${this.nome}\nCPF: #${this.#cpf}\nEndereço: ${this.endereco.exibirEndereco()}\nTelefones:\n${detalhesTelefone}`;
+    }
+
+    // Método para acessar o CPF com o "#" na frente
+    getCpf() {
+        return `#${this.#cpf}`;
     }
 }
 
@@ -57,10 +65,14 @@ class Telefone {
 }
 
 class Empresa {
-    constructor(razaoSocial, nomeFantasia, endereco) {
+    // Atributos privados
+    #cnpj;
+
+    constructor(razaoSocial, nomeFantasia, endereco, cnpj) {
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
         this.endereco = endereco;
+        this.#cnpj = cnpj;  // CNPJ mantido como privado
         this.clientes = new Set();
         this.telefones = new Set();
     }
@@ -75,10 +87,15 @@ class Empresa {
         telefones.forEach(telefone => this.telefones.add(telefone));
     }
 
-    // Exibe detalhes da empresa e dos seus clientes
+    // Exibe detalhes da empresa e dos seus clientes, com o CNPJ formatado
     detalhes() {
         const detalhesClientes = [...this.clientes].map(cliente => cliente.detalhes()).join('\n\n');
-        return `Razão Social: ${this.razaoSocial}\nNome Fantasia: ${this.nomeFantasia}\nEndereço: ${this.endereco.exibirEndereco()}\n\n${detalhesClientes}`;
+        return `Razão Social: ${this.razaoSocial}\nNome Fantasia: ${this.nomeFantasia}\nCNPJ: #${this.#cnpj}\nEndereço: ${this.endereco.exibirEndereco()}\n\n${detalhesClientes}`;
+    }
+
+    // Método para acessar o CNPJ com o "#" na frente
+    getCnpj() {
+        return `#${this.#cnpj}`;
     }
 }
 
@@ -97,8 +114,8 @@ let telefones = [
     new Telefone(21, 933445566)
 ];
 
-// Criando a empresa
-let empresa = new Empresa("Tech Solutions LTDA", "TechZone", enderecoEmpresa);
+// Criando a empresa com CNPJ privado
+let empresa = new Empresa("Tech Solutions LTDA", "TechZone", enderecoEmpresa, "12345678000100");
 
 // Criando clientes com seus endereços
 let cliente1 = new Cliente("Carlos Silva", "98765432100", new Endereco("RJ", "Rio de Janeiro", "Rua das Palmeiras", 204));

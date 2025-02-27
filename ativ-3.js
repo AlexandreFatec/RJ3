@@ -3,9 +3,9 @@ class Cliente {
     #cpf;
 
     constructor(nome, cpf, endereco) {
-        this.nome = nome;  // Nome sem formatação
-        this.#cpf = cpf;   // CPF mantido como privado
-        this.endereco = endereco;  // Endereço sem formatação
+        this.nome = nome; 
+        this.#cpf = cpf;   
+        this.endereco = endereco; 
         this.telefones = new Set();
     }
 
@@ -72,7 +72,7 @@ class Empresa {
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
         this.endereco = endereco;
-        this.#cnpj = cnpj;  // CNPJ mantido como privado
+        this.#cnpj = cnpj; 
         this.clientes = new Set();
         this.telefones = new Set();
     }
